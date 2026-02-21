@@ -48,6 +48,10 @@ pc.defineParameter("osImage", "Select OS image",
                    portal.ParameterType.IMAGE,
                    imageList[1], imageList)
 
+# 1. NEW PARAMETER DEFINITION
+pc.defineParameter("nodeType", "Hardware Type", 
+                   portal.ParameterType.NODETYPE, "raw")
+
 # Always need this when using parameters
 params = pc.bindParameters()
 
@@ -60,6 +64,11 @@ nfsLan.link_multiplexing = True
 # The NFS server.
 nfsServer = request.RawPC(nfsServerName)
 nfsServer.disk_image = params.osImage
+
+# Set the hardware type from the parameter
+if params.nodeType != "raw":
+    nfsServer.hardware_type = params.nodeType
+
 # Attach server to lan.
 nfsLan.addInterface(nfsServer.addInterface())
 # Initialization script for the server
@@ -82,6 +91,9 @@ dslink.link_multiplexing = True
 for i in range(1, params.clientCount+1):
     node = request.RawPC("node%d" % i)
     node.disk_image = params.osImage
+    # Set the hardware type from the parameter
+        if params.nodeType != "raw":
+            node.hardware_type = params.nodeType
     nfsLan.addInterface(node.addInterface())
     # Initialization script for the clients
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh"))
