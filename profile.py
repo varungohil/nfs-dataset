@@ -42,7 +42,7 @@ pc.defineParameter("clientCount", "Number of NFS clients",
 
 pc.defineParameter("dataset", "Your dataset URN",
                    portal.ParameterType.STRING,
-                   "urn:publicid:IDN+emulab.net:portalprofiles+ltdataset+DemoDataset")
+                   "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD")
 
 pc.defineParameter("osImage", "Select OS image",
                    portal.ParameterType.IMAGE,
