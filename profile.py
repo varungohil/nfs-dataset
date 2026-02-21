@@ -92,8 +92,8 @@ for i in range(1, params.clientCount+1):
     node = request.RawPC("node%d" % i)
     node.disk_image = params.osImage
     # Set the hardware type from the parameter
-        if params.nodeType != "raw":
-            node.hardware_type = params.nodeType
+    if params.nodeType != "raw":
+        node.hardware_type = params.nodeType
     nfsLan.addInterface(node.addInterface())
     # Initialization script for the clients
     node.addService(pg.Execute(shell="sh", command="sudo /bin/bash /local/repository/nfs-client.sh"))
